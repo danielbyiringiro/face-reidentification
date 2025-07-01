@@ -1,28 +1,309 @@
 {
-    "Richie": {
-        "full_name": "Richie",
+    "Daniel": {
+        "full_name": "Daniel Byiringiro",
         "role": "Student",
-        "schedule": [
-            {
-                "time": "06:00-08:00",
-                "class": "Math",
-                "room": "Room C431"
-            },
-            {
-                "time": "08:00-10:00",
-                "class": "English",
-                "room": "Room D256"
-            },
-            {
-                "time": "10:00-12:00",
-                "class": "Science",
-                "room": "Room D212"
-            },
-            {
-                "time": "12:00-22:00",
-                "class": "History",
-                "room": "Room D432"
-            }
-        ]
+        "schedule": {
+            "Monday": [
+                {
+                    "time": "09:00-10:00",
+                    "class": "Mathematics",
+                    "room": "Room 101"
+                },
+                {
+                    "time": "10:15-11:15",
+                    "class": "Physics",
+                    "room": "Lab 203"
+                },
+                {
+                    "time": "11:30-12:30",
+                    "class": "Chemistry",
+                    "room": "Lab 105"
+                },
+                {
+                    "time": "13:30-14:30",
+                    "class": "English Literature",
+                    "room": "Room 302"
+                },
+                {
+                    "time": "14:45-15:45",
+                    "class": "Computer Science",
+                    "room": "Computer Lab"
+                }
+            ],
+            "Tuesday": [
+                {
+                    "time": "09:00-10:00",
+                    "class": "History",
+                    "room": "Room 201"
+                },
+                {
+                    "time": "10:15-11:15",
+                    "class": "Biology",
+                    "room": "Lab 301"
+                },
+                {
+                    "time": "11:30-12:30",
+                    "class": "Art",
+                    "room": "Art Studio"
+                },
+                {
+                    "time": "13:30-14:30",
+                    "class": "Physical Education",
+                    "room": "Gymnasium"
+                },
+                {
+                    "time": "14:45-19:45",
+                    "class": "Study Hall",
+                    "room": "Library"
+                }
+            ],
+            "Wednesday": [
+                {
+                    "time": "09:00-10:00",
+                    "class": "Mathematics",
+                    "room": "Room 101"
+                },
+                {
+                    "time": "10:15-11:15",
+                    "class": "Physics",
+                    "room": "Lab 203"
+                },
+                {
+                    "time": "11:30-12:30",
+                    "class": "Chemistry",
+                    "room": "Lab 105"
+                },
+                {
+                    "time": "13:30-14:30",
+                    "class": "Spanish",
+                    "room": "Room 205"
+                },
+                {
+                    "time": "14:45-15:45",
+                    "class": "Music",
+                    "room": "Music Room"
+                }
+            ],
+            "Thursday": [
+                {
+                    "time": "09:00-10:00",
+                    "class": "History",
+                    "room": "Room 201"
+                },
+                {
+                    "time": "10:15-11:15",
+                    "class": "Biology",
+                    "room": "Lab 301"
+                },
+                {
+                    "time": "11:30-12:30",
+                    "class": "English Literature",
+                    "room": "Room 302"
+                },
+                {
+                    "time": "13:30-14:30",
+                    "class": "Computer Science",
+                    "room": "Computer Lab"
+                },
+                {
+                    "time": "14:45-15:45",
+                    "class": "Study Hall",
+                    "room": "Library"
+                }
+            ],
+            "Friday": [
+                {
+                    "time": "09:00-10:00",
+                    "class": "Mathematics",
+                    "room": "Room 101"
+                },
+                {
+                    "time": "10:15-11:15",
+                    "class": "Physics",
+                    "room": "Lab 203"
+                },
+                {
+                    "time": "11:30-12:30",
+                    "class": "Art",
+                    "room": "Art Studio"
+                },
+                {
+                    "time": "13:30-14:30",
+                    "class": "Physical Education",
+                    "room": "Gymnasium"
+                },
+                {
+                    "time": "14:45-15:45",
+                    "class": "Free Period",
+                    "room": "Cafeteria"
+                }
+            ]
+        }
+    },
+    "John": {
+        "full_name": "John Smith",
+        "role": "Teacher",
+        "schedule": {
+            "Monday": [
+                {
+                    "time": "08:00-09:00",
+                    "class": "Prep Time",
+                    "room": "Office 12"
+                },
+                {
+                    "time": "09:00-10:00",
+                    "class": "Teaching Physics",
+                    "room": "Lab 203"
+                },
+                {
+                    "time": "10:15-11:15",
+                    "class": "Teaching Chemistry",
+                    "room": "Lab 105"
+                },
+                {
+                    "time": "11:30-12:30",
+                    "class": "Lunch Break",
+                    "room": "Faculty Lounge"
+                },
+                {
+                    "time": "13:30-14:30",
+                    "class": "Department Meeting",
+                    "room": "Conference Room"
+                },
+                {
+                    "time": "14:45-15:45",
+                    "class": "Office Hours",
+                    "room": "Office 12"
+                }
+            ],
+            "Tuesday": [
+                {
+                    "time": "08:00-09:00",
+                    "class": "Prep Time",
+                    "room": "Office 12"
+                },
+                {
+                    "time": "09:00-10:00",
+                    "class": "Teaching Physics",
+                    "room": "Lab 203"
+                },
+                {
+                    "time": "10:15-11:15",
+                    "class": "Teaching Chemistry",
+                    "room": "Lab 105"
+                },
+                {
+                    "time": "11:30-12:30",
+                    "class": "Lunch Break",
+                    "room": "Faculty Lounge"
+                },
+                {
+                    "time": "13:30-14:30",
+                    "class": "Grading",
+                    "room": "Office 12"
+                },
+                {
+                    "time": "14:45-19:45",
+                    "class": "Office Hours",
+                    "room": "Office 12"
+                }
+            ],
+            "Wednesday": [
+                {
+                    "time": "08:00-09:00",
+                    "class": "Prep Time",
+                    "room": "Office 12"
+                },
+                {
+                    "time": "09:00-10:00",
+                    "class": "Teaching Physics",
+                    "room": "Lab 203"
+                },
+                {
+                    "time": "10:15-11:15",
+                    "class": "Teaching Chemistry",
+                    "room": "Lab 105"
+                },
+                {
+                    "time": "11:30-12:30",
+                    "class": "Lunch Break",
+                    "room": "Faculty Lounge"
+                },
+                {
+                    "time": "13:30-14:30",
+                    "class": "Lab Maintenance",
+                    "room": "Lab 203"
+                },
+                {
+                    "time": "14:45-15:45",
+                    "class": "Office Hours",
+                    "room": "Office 12"
+                }
+            ],
+            "Thursday": [
+                {
+                    "time": "08:00-09:00",
+                    "class": "Prep Time",
+                    "room": "Office 12"
+                },
+                {
+                    "time": "09:00-10:00",
+                    "class": "Teaching Physics",
+                    "room": "Lab 203"
+                },
+                {
+                    "time": "10:15-11:15",
+                    "class": "Teaching Chemistry",
+                    "room": "Lab 105"
+                },
+                {
+                    "time": "11:30-12:30",
+                    "class": "Lunch Break",
+                    "room": "Faculty Lounge"
+                },
+                {
+                    "time": "13:30-14:30",
+                    "class": "Parent Conferences",
+                    "room": "Office 12"
+                },
+                {
+                    "time": "14:45-15:45",
+                    "class": "Office Hours",
+                    "room": "Office 12"
+                }
+            ],
+            "Friday": [
+                {
+                    "time": "08:00-09:00",
+                    "class": "Prep Time",
+                    "room": "Office 12"
+                },
+                {
+                    "time": "09:00-10:00",
+                    "class": "Teaching Physics",
+                    "room": "Lab 203"
+                },
+                {
+                    "time": "10:15-11:15",
+                    "class": "Teaching Chemistry",
+                    "room": "Lab 105"
+                },
+                {
+                    "time": "11:30-12:30",
+                    "class": "Lunch Break",
+                    "room": "Faculty Lounge"
+                },
+                {
+                    "time": "13:30-14:30",
+                    "class": "Lesson Planning",
+                    "room": "Office 12"
+                },
+                {
+                    "time": "14:45-15:45",
+                    "class": "Weekend Prep",
+                    "room": "Office 12"
+                }
+            ]
+        }
     }
 }

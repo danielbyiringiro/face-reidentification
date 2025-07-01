@@ -30,6 +30,7 @@ mouse_pos = (0, 0)
 tts_engine = None
 person_metadata = {}
 threat_states = {} # Track threat status of detected persons
+announced_persons = set()
 
 
 def parse_args():
@@ -167,8 +168,8 @@ def load_person_metadata(metadata_file):
 def create_default_metadata(metadata_file):
     """Create default metadata file with sample data"""
     default_data = {
-        "Richie": {
-            "full_name": "Richard Martinez",
+        "Daniel": {
+            "full_name": "Daniel Byiringiro",
             "role": "Student",
             "schedule": {
                 "Monday": [
@@ -414,13 +415,27 @@ def save_face_crop(frame, bbox, kps, name, faces_dir):
         os.makedirs(faces_dir)
     
     x1, y1, x2, y2 = bbox[:4].astype(np.int32)
+    face_w, face_h = x2 - x1, y2 - y1
     
     # Add some padding around the face
-    padding = 20
-    x1 = max(0, x1 - padding)
-    y1 = max(0, y1 - padding)
-    x2 = min(frame.shape[1], x2 + padding)
-    y2 = min(frame.shape[0], y2 + padding)
+    padding_w = int(face_w * 0.5)
+    padding_h = int(face_h * 0.5)
+
+    # padding = 20
+    x1 = max(0, x1 - padding_w)
+    y1 = max(0, y1 - padding_h)
+    x2 = min(frame.shape[1], x2 + padding_w)
+    y2 = min(frame.shape[0], y2 + padding_h)
+
+    min_size = 200
+
+    if (x2 - x1) < min_size or (y2 - y1) < min_size:
+        center_x = (x1 + x2) // 2
+        center_y = (y1 + y2) // 2
+        x1 = max(0, center_x - min_size//2)
+        y1 = max(0, center_y - min_size//2)
+        x2 = min(frame.shape[1], center_x + min_size//2)
+        y2 = min(frame.shape[0], center_y + min_size//2)
     
     face_crop = frame[y1:y2, x1:x2]
     
@@ -430,9 +445,9 @@ def save_face_crop(frame, bbox, kps, name, faces_dir):
     filepath = os.path.join(faces_dir, filename)
     
     # Save the cropped face
-    success = cv2.imwrite(filepath, face_crop)
+    success = cv2.imwrite(filepath, face_crop, [int(cv2.IMWRITE_JPEG_QUALITY), 95])
     if success:
-        logging.info(f"Saved face crop: {filepath}")
+        logging.info(f"Saved face crop: {filepath} | Size: {face_crop.shape[1]}x{face_crop.shape[0]}")
         return filepath
     else:
         logging.error(f"Failed to save face crop: {filepath}")
@@ -537,6 +552,7 @@ def frame_processor(
                 'weapon_in_view': False,
                 'sitrep_announced': False
             }
+            announce_person(best_match_name)
 
         face_x1, face_y1, face_x2, face_y2 = face_bbox_coords
         face_h = face_y2 - face_y1
@@ -791,6 +807,11 @@ def main():
                         targets.append((embedding, name))
                         colors[name] = (random.randint(0, 256), random.randint(0, 256), random.randint(0, 256))
                         logging.info(f"Added new face target: {name}")
+                        if saved_path is not None:
+                            test_img = cv2.imread(saved_path)
+                            test_bboxes, _ = detector.detect(test_img, max_num=1)
+                            if len(test_bboxes) == 0:
+                                logging.warning(f"Face not detected in saved image: {filepath}")
                     
                     # Reset selection
                     selected_face_bbox = None
