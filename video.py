@@ -6,9 +6,6 @@ import argparse
 import logging
 import numpy as np
 import time
-import json
-import tkinter as tk
-from tkinter import simpledialog
 from datetime import datetime
 import pyttsx3
 import threading
