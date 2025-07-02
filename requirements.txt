@@ -6,3 +6,4 @@ scikit-image==0.23.2
 ultralytics
 torch
 pyttsx3
+imageio[ffmpeg]

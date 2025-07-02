@@ -1,5 +1,6 @@
 import os
 import cv2
+import imageio.v2 as imageio
 import random
 import warnings
 import argparse
@@ -363,19 +364,23 @@ def main():
     colors = {name: (random.randint(0, 256), random.randint(0, 256), random.randint(0, 256)) for _, name in targets}
 
     logging.info(f"Opening video (filepath: {params.video_path}) ...")
-    cap = cv2.VideoCapture(params.video_path)
+    reader = imageio.get_reader(params.video_path)
+    # cap = cv2.VideoCapture(params.video_path)
 
     # print(f"Video open: {cap.isOpened()}")
     
-    if not cap.isOpened():
-        logging.error(f"Could not access video with path {params.video_path}")
-        raise Exception(f"Could not access video with path {params.video_path}")
+    # if not reader.isOpened():
+    #     logging.error(f"Could not access video with path {params.video_path}")
+    #     raise Exception(f"Could not access video with path {params.video_path}")
 
     # Try to set a higher resolution for the webcam
 
-    width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    fps = int(cap.get(cv2.CAP_PROP_FPS))
+    # width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
+    # height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    # fps = int(cap.get(cv2.CAP_PROP_FPS))
+
+    fps = reader.get_meta_data()['fps']
+    width, height = reader.get_meta_data()['size']
 
     outptput_filename = f'output/file_{time.time()}.mp4'
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
@@ -391,13 +396,13 @@ def main():
     processing_times = []
     face_counts = []
     
-    while True:
+    for frame in reader:
         # print("DEBUG: Attempting cap.read()", flush=True) # Commented out for now
-        ret, frame = cap.read()
-        if not ret or frame is None:
-            logging.error("Failed to grab frame from video after cap.read()")
-            # print("DEBUG: cap.read() failed or returned empty frame.", flush=True) # Commented out for now
-            break
+        frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+        # if not ret or frame is None:
+        #     logging.error("Failed to grab frame from video after cap.read()")
+        #     # print("DEBUG: cap.read() failed or returned empty frame.", flush=True) # Commented out for now
+        #     break
 
         current_frame = frame.copy()
         processed_frame, num_faces, process_time, bboxes_fp, kpss_fp = frame_processor(
@@ -439,7 +444,7 @@ def main():
         )
         out.write(processed_frame)
     logging.info("Releasing resources...")
-    cap.release()
+    reader.close()
     cv2.destroyAllWindows()
     logging.info("Done")
 
