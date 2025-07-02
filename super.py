@@ -811,7 +811,7 @@ def main():
                             test_img = cv2.imread(saved_path)
                             test_bboxes, _ = detector.detect(test_img, max_num=1)
                             if len(test_bboxes) == 0:
-                                logging.warning(f"Face not detected in saved image: {filepath}")
+                                logging.warning(f"Face not detected in saved image: {saved_path}")
                     
                     # Reset selection
                     selected_face_bbox = None

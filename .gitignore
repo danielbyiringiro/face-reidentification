@@ -133,6 +133,7 @@ ENV/
 env.bak/
 venv.bak/
 virtual/
+output/*.mp4
 
 # Spyder project settings
 .spyderproject
