@@ -365,29 +365,20 @@ def main():
 
     logging.info(f"Opening video (filepath: {params.video_path}) ...")
     reader = imageio.get_reader(params.video_path)
-    # cap = cv2.VideoCapture(params.video_path)
-
-    # print(f"Video open: {cap.isOpened()}")
-    
-    # if not reader.isOpened():
-    #     logging.error(f"Could not access video with path {params.video_path}")
-    #     raise Exception(f"Could not access video with path {params.video_path}")
-
-    # Try to set a higher resolution for the webcam
-
-    # width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
-    # height = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    # fps = int(cap.get(cv2.CAP_PROP_FPS))
 
     fps = reader.get_meta_data()['fps']
     width, height = reader.get_meta_data()['size']
+    timestamp = str(time.time())
+    filename = timestamp.split('.')[0]
 
-    outptput_filename = f'output/file_{time.time()}.mp4'
+    os.makedirs("output", exist_ok=True)
+    output_filename = f'output/file_{filename}.mp4'
+
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(outptput_filename, fourcc, fps, (width, height))
+    out = cv2.VideoWriter(output_filename, fourcc, fps, (width, height))
     
     logging.info(f"Video opened: {width}x{height} at {fps} FPS")
-    logging.info(f"Output filename: {outptput_filename}")
+    logging.info(f"Output filename: {output_filename}")
     
     # Performance tracking variables
     frame_count = 0
@@ -397,18 +388,14 @@ def main():
     face_counts = []
     
     for frame in reader:
-        # print("DEBUG: Attempting cap.read()", flush=True) # Commented out for now
+
         frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
-        # if not ret or frame is None:
-        #     logging.error("Failed to grab frame from video after cap.read()")
-        #     # print("DEBUG: cap.read() failed or returned empty frame.", flush=True) # Commented out for now
-        #     break
 
         current_frame = frame.copy()
         processed_frame, num_faces, process_time, bboxes_fp, kpss_fp = frame_processor(
             frame, detector, recognizer, gun_detector, targets, colors, params
         )
-        
+
         # Track performance metrics
         processing_times.append(process_time)
         face_counts.append(num_faces)
@@ -444,6 +431,7 @@ def main():
         )
         out.write(processed_frame)
     logging.info("Releasing resources...")
+    out.release()
     reader.close()
     cv2.destroyAllWindows()
     logging.info("Done")
